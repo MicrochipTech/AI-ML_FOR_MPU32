@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>MIPI Live video streaming</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'css/main.css') }}">
+		<noscript><link rel="stylesheet" href="{{ url_for('static', filename= 'css/noscript.css') }}"></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<h1><a href="index.html">SAMA7G54-Ek Demo</a></h1>
+					</header>
+
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<a href="#" class="logo"><img src="{{ url_for('static', filename= 'images/microchip-round-logo.png') }}" alt="" width="20%" /></a>
+							<img src="{{ url_for('static', filename= 'images/microchip-name.png') }}" alt="" width="60%" />
+							<h2>Welcome to the live video streaming</h2>
+							<center>
+								<p>Made with love by the MPU32 Marketing Team.
+									<br/>Scroll down to watch the stream
+									<br/>Detected Object :
+								</p>
+								<h2 id="result"></h2>
+							</center>
+						</div>
+					</section>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+
+						<!-- One -->
+							<section id="one" class="wrapper spotlight style3">
+								<div class="inner">
+									<div class="content">
+										<center>
+											<h2 id="livestream" class="major">Live streaming :</h2>
+											<img src="{{ url_for('video_feed') }}">
+										</center>
+
+									</div>
+								</div>
+							</section>
+					</section>
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Microchip Technology Inc. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li><li>Edited by Hakim CHERIF.</li>
+							</ul>
+						</div>
+					</section>
+			</div>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename= 'js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static', filename= 'js/browser.min.js') }}"></script>
+			<script src="{{ url_for('static', filename= 'js/breakpoints.min.js') }}"></script>
+			<script src="{{ url_for('static', filename= 'js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename= 'js/main.js') }}"></script>
+			<script>
+				var clock = document.getElementById("result");
+				setInterval(() => {
+					 fetch("{{ url_for('result_text') }}")
+					.then(response => {
+							response.text().then(t => {result.innerHTML = t})
+						});
+					}, 1000);
+			</script>
+	</body>
+</html>
+
