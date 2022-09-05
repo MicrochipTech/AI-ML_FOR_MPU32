@@ -9,7 +9,7 @@ To run the demos you will need to flash a SD Card with our custom [Linux4Sam SD 
 
 >Hint : This SD Card image supports the three demos presented bellow.
 
->Hint 2 :You can also download our [plug-and-play SD Card image](sd_cardmpu32demos.zip).
+>Hint 2 :You can also download our [plug-and-play SD Card image](sdcard_mpu32demos.zip).
 
 To flash the SD Card, follow this tutorial : https://www.linux4sam.org/bin/view/Linux4SAM/DemoSD
 
@@ -23,6 +23,16 @@ Specific running instructions are provided for each demo.
 | [Keyword Recognition](keyword_recognition)      | 8 Keywords recognition demo       | Embedded PDMs (microphones) | CNN |
 | [Object Recognition](Image_Classification) | Image recognition demo | MIPI CSI 2 Sensor or USB Camera | MobileNets|
 |[ALPR](ALPR) | Automatic Chinese License Plate Recognition | USB Camera | MobileNets and OCR |
+
+## SD Card Images
+
+The provided SD card images in this repository contain the Linux4Sam 2022.04 distribution, adapted for machine learning purposes. 
+
+| Image | Description | Linux4SAM Distribution |
+| -- | -- | --|
+|[sdcard.zip](sdcard.zip) | Empty image, without the dependencies and without the python source code. | 2022.04, adapated for machine learning. |
+|[sdcard_mpu32demos.zip](sdcard_mpu32demos.zip) | Image containing everything needed, the dependencies are already installed, the device tree overlay is updated. | 2022.04, adapted for machine learning.
+
 
 ## File : menu_demos
 The `menu_demos` file is bash file you can use to launch the demos.
