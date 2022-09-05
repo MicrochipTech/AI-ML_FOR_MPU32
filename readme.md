@@ -13,5 +13,12 @@ Only one board is supported for the moment :
 | ----------- | ----------- |
 | [SAMA7G54-Ek](sama7g54-ek)      | Arm Cortex-A7
 
+## Customize Linux4SAM Distribution for Machine Learning. 
+
+To generate your own Linux4SAM image, you will need to customize the Linux4Sam Buildroot distribution. 
+
+To do so, follow the instructions provided in the [linux4sam_for_ml](linux4sam_for_ml) directory.
+
+------- 
 
 ![SAMA7G5 image](readme/sama7g54.jpg)
