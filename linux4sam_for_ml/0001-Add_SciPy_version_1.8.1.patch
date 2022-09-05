@@ -1,0 +1,277 @@
+From c2fd47020d9e612b3dec914f1f13a93d6563e7b7 Mon Sep 17 00:00:00 2001
+From: Hakim CHERIF <Hakim.Cherif@microchip.com>
+Date: Mon, 5 Sep 2022 14:03:22 +0200
+Subject: [PATCH] Add_SciPy_version_1.8.1
+
+---
+ .../buildroot-at91/DEVELOPERS                 |  3 +
+ .../buildroot-at91/package/Config.in          |  1 +
+ .../python-beniget/python-beniget.hash        |  5 ++
+ .../package/python-beniget/python-beniget.mk  | 15 +++++
+ .../package/python-gast/python-gast.hash      |  5 ++
+ .../package/python-gast/python-gast.mk        | 14 +++++
+ .../python-pythran/python-pythran.hash        |  6 ++
+ .../package/python-pythran/python-pythran.mk  | 19 ++++++
+ .../package/python-scipy/Config.in            | 30 +++++++++
+ .../package/python-scipy/python-scipy.hash    |  2 +
+ .../package/python-scipy/python-scipy.mk      | 63 +++++++++++++++++++
+ 11 files changed, 163 insertions(+)
+ create mode 100644 package/python-beniget/python-beniget.hash
+ create mode 100644 package/python-beniget/python-beniget.mk
+ create mode 100644 package/python-gast/python-gast.hash
+ create mode 100644 package/python-gast/python-gast.mk
+ create mode 100644 package/python-pythran/python-pythran.hash
+ create mode 100644 package/python-pythran/python-pythran.mk
+ create mode 100644 package/python-scipy/Config.in
+ create mode 100644 package/python-scipy/python-scipy.hash
+ create mode 100644 package/python-scipy/python-scipy.mk
+
+diff --git a/DEVELOPERS b/DEVELOPERS
+index 9d77673f..81eceefb 100644
+--- a/DEVELOPERS
++++ b/DEVELOPERS
+@@ -1149,6 +1149,7 @@ F:	package/libxcrypt/
+ F:	package/liquid-dsp/
+ F:	package/pixiewps/
+ F:	package/python-pybind/
++F:	package/python-scipy/
+ F:	package/reaver/
+ F:	support/testing/tests/package/br2-external/python-pybind
+ F:	support/testing/tests/package/sample_python_pybind.py
+@@ -1280,6 +1281,8 @@ F:	configs/orangepi_win_defconfig
+ F:	configs/orangepi_zero_plus2_defconfig
+ F:	configs/pine64_defconfig
+ F:	configs/pine64_sopine_defconfig
++F:	package/python-pybind/
++F:	package/python-scipy/
+ 
+ N:	James Hilliard <james.hilliard1@gmail.com>
+ F:	package/apcupsd/
+diff --git a/package/Config.in b/package/Config.in
+index 517e66cc..ccc2d9d7 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -1208,6 +1208,7 @@ menu "External python modules"
+ 	source "package/python-scandir/Config.in"
+ 	source "package/python-scapy/Config.in"
+ 	source "package/python-schedule/Config.in"
++	source "package/python-scipy/Config.in"
+ 	source "package/python-sdnotify/Config.in"
+ 	source "package/python-secretstorage/Config.in"
+ 	source "package/python-see/Config.in"
+diff --git a/package/python-beniget/python-beniget.hash b/package/python-beniget/python-beniget.hash
+new file mode 100644
+index 00000000..cd4fa7b8
+--- /dev/null
++++ b/package/python-beniget/python-beniget.hash
+@@ -0,0 +1,5 @@
++# md5, sha256 from https://pypi.org/pypi/beniget/json
++md5  a2bbe7f17f10f9c127d8ef00692ddc55  beniget-0.4.1.tar.gz
++sha256  75554b3b8ad0553ce2f607627dad3d95c60c441189875b98e097528f8e23ac0c  beniget-0.4.1.tar.gz
++# Locally computed sha256 checksums
++sha256  64ad3e304e9d2d8731c26ac3e652335a6016e38be2f71fe30350be51c6d500b0  LICENSE
+diff --git a/package/python-beniget/python-beniget.mk b/package/python-beniget/python-beniget.mk
+new file mode 100644
+index 00000000..9970546b
+--- /dev/null
++++ b/package/python-beniget/python-beniget.mk
+@@ -0,0 +1,15 @@
++################################################################################
++#
++# python-beniget
++#
++################################################################################
++
++PYTHON_BENIGET_VERSION = 0.4.1
++PYTHON_BENIGET_SOURCE = beniget-$(PYTHON_BENIGET_VERSION).tar.gz
++PYTHON_BENIGET_SITE = https://files.pythonhosted.org/packages/14/e7/50cbac38f77eca8efd39516be6651fdb9f3c4c0fab8cf2cf05f612578737
++PYTHON_BENIGET_SETUP_TYPE = setuptools
++PYTHON_BENIGET_LICENSE = BSD-3-Clause
++PYTHON_BENIGET_LICENSE_FILES = LICENSE
++HOST_PYTHON_BENIGET_DEPENDENCIES = host-python-gast
++
++$(eval $(host-python-package))
+diff --git a/package/python-gast/python-gast.hash b/package/python-gast/python-gast.hash
+new file mode 100644
+index 00000000..f16d001a
+--- /dev/null
++++ b/package/python-gast/python-gast.hash
+@@ -0,0 +1,5 @@
++# md5, sha256 from https://pypi.org/pypi/gast/json
++md5  fdff900805e03e9dd76d377eb4cbaed7  gast-0.5.3.tar.gz
++sha256  cfbea25820e653af9c7d1807f659ce0a0a9c64f2439421a7bba4f0983f532dea  gast-0.5.3.tar.gz
++# Locally computed sha256 checksums
++sha256  6a04bbabd9b48bea6bf7c0bd3f3a062e1476b3c403a746448fd69b0d902e148f  LICENSE
+diff --git a/package/python-gast/python-gast.mk b/package/python-gast/python-gast.mk
+new file mode 100644
+index 00000000..e02e87fb
+--- /dev/null
++++ b/package/python-gast/python-gast.mk
+@@ -0,0 +1,14 @@
++################################################################################
++#
++# python-gast
++#
++################################################################################
++
++PYTHON_GAST_VERSION = 0.5.3
++PYTHON_GAST_SOURCE = gast-$(PYTHON_GAST_VERSION).tar.gz
++PYTHON_GAST_SITE = https://files.pythonhosted.org/packages/48/a3/0bd844c54ae8141642088b7ae09dd38fec2ec7faa9b7d25bb6a23c1f266f
++PYTHON_GAST_SETUP_TYPE = setuptools
++PYTHON_GAST_LICENSE = BSD-3-Clause
++PYTHON_GAST_LICENSE_FILES = LICENSE
++
++$(eval $(host-python-package))
+diff --git a/package/python-pythran/python-pythran.hash b/package/python-pythran/python-pythran.hash
+new file mode 100644
+index 00000000..a24bb4dc
+--- /dev/null
++++ b/package/python-pythran/python-pythran.hash
+@@ -0,0 +1,6 @@
++# md5, sha256 from https://pypi.org/pypi/pythran/json
++md5  e09e90484771937ab499380858bdb18d  pythran-0.11.0.tar.gz
++sha256  0b2cba712e09f7630879dff69f268460bfe34a6d6000451b47d598558a92a875  pythran-0.11.0.tar.gz
++# Locally computed sha256 checksums
++sha256  0be9f14c66a9a3cb66d5263a6495437862ce0c9cdf60d4a6c36d1e51b1244c6e  LICENSE
++sha256  e1c0ed0a99e4462016d79d835f1f479b78c4d4a07fe66598e97f449503ffd178  docs/LICENSE.rst
+diff --git a/package/python-pythran/python-pythran.mk b/package/python-pythran/python-pythran.mk
+new file mode 100644
+index 00000000..8234513a
+--- /dev/null
++++ b/package/python-pythran/python-pythran.mk
+@@ -0,0 +1,19 @@
++################################################################################
++#
++# python-pythran
++#
++################################################################################
++
++PYTHON_PYTHRAN_VERSION = 0.11.0
++PYTHON_PYTHRAN_SOURCE = pythran-$(PYTHON_PYTHRAN_VERSION).tar.gz
++PYTHON_PYTHRAN_SITE = https://files.pythonhosted.org/packages/88/9f/161f08131abf7f23920cee29b691de27f10fd97ac09fb2f3532b3a7f9b96
++PYTHON_PYTHRAN_SETUP_TYPE = setuptools
++PYTHON_PYTHRAN_LICENSE = BSD-3-Clause
++PYTHON_PYTHRAN_LICENSE_FILES = LICENSE docs/LICENSE.rst
++HOST_PYTHON_PYTHRAN_DEPENDENCIES = \
++	host-python-beniget \
++	host-python-gast \
++	host-python-numpy \
++	host-python-ply
++
++$(eval $(host-python-package))
+diff --git a/package/python-scipy/Config.in b/package/python-scipy/Config.in
+new file mode 100644
+index 00000000..a016d411
+--- /dev/null
++++ b/package/python-scipy/Config.in
+@@ -0,0 +1,30 @@
++config BR2_PACKAGE_PYTHON_SCIPY
++	bool "python-scipy"
++	depends on BR2_PACKAGE_OPENBLAS_ARCH_SUPPORTS # openblas
++	depends on BR2_PACKAGE_PYTHON_NUMPY_ARCH_SUPPORTS # python-numpy
++	depends on BR2_PACKAGE_LAPACK_ARCH_SUPPORTS # lapack
++	depends on BR2_TOOLCHAIN_USES_GLIBC || BR2_TOOLCHAIN_USES_MUSL # python-numpy
++	depends on BR2_TOOLCHAIN_HAS_FORTRAN # lapack
++	depends on BR2_INSTALL_LIBSTDCPP
++	depends on BR2_PACKAGE_PYTHON3
++	select BR2_PACKAGE_LAPACK
++	select BR2_PACKAGE_OPENBLAS
++	select BR2_PACKAGE_ZLIB # runtime scipy::io
++	select BR2_PACKAGE_PYTHON_NUMPY # runtime
++	select BR2_PACKAGE_PYTHON_PYBIND
++	help
++	  The SciPy library is one of the core packages that make up the
++	  SciPy stack. It provides many user-friendly and efficient
++	  numerical routines such as routines for numerical integration,
++	  interpolation, optimization, linear algebra and statistics.
++
++	  https://www.scipy.org/scipylib/
++
++comment "python-scipy needs toolchain w/ fortran and c++ and glibc or musl"
++	depends on BR2_PACKAGE_OPENBLAS_ARCH_SUPPORTS
++	depends on BR2_PACKAGE_PYTHON_NUMPY_ARCH_SUPPORTS
++	depends on BR2_PACKAGE_LAPACK_ARCH_SUPPORTS
++	depends on BR2_PACKAGE_PYTHON3
++	depends on !BR2_TOOLCHAIN_HAS_FORTRAN || \
++		!BR2_INSTALL_LIBSTDCPP || \
++		(!BR2_TOOLCHAIN_USES_GLIBC && !BR2_TOOLCHAIN_USES_MUSL)
+diff --git a/package/python-scipy/python-scipy.hash b/package/python-scipy/python-scipy.hash
+new file mode 100644
+index 00000000..703db29f
+--- /dev/null
++++ b/package/python-scipy/python-scipy.hash
+@@ -0,0 +1,2 @@
++# Locally generated
++sha256  0140dd24d14ce194fdb3df496c2190f0896ca84ac98bf5d69c3b3fb7bde1a1e9  scipy-1.8.1.tar.xz
+diff --git a/package/python-scipy/python-scipy.mk b/package/python-scipy/python-scipy.mk
+new file mode 100644
+index 00000000..de240198
+--- /dev/null
++++ b/package/python-scipy/python-scipy.mk
+@@ -0,0 +1,63 @@
++################################################################################
++#
++# python-scipy
++#
++################################################################################
++
++PYTHON_SCIPY_VERSION = 1.8.1
++PYTHON_SCIPY_SOURCE = scipy-$(PYTHON_SCIPY_VERSION).tar.xz
++PYTHON_SCIPY_SITE = https://github.com/scipy/scipy/releases/download/v$(PYTHON_SCIPY_VERSION)
++PYTHON_SCIPY_LICENSE = \
++	BSD-3-Clause, \
++	BSD-2-Clause, \
++	BSD, \
++	BSD-Style, \
++	Apache-2.0, \
++	MIT
++PYTHON_SCIPY_LICENSE_FILES = \
++	LICENSE.txt \
++	scipy/linalg/src/lapack_deprecations/LICENSE \
++	scipy/ndimage/LICENSE.txt \
++	scipy/optimize/tnc/LICENSE \
++	scipy/sparse/linalg/dsolve/SuperLU/License.txt \
++	scipy/sparse/linalg/eigen/arpack/ARPACK/COPYING \
++	scipy/spatial/qhull_src/COPYING.txt
++PYTHON_SCIPY_DEPENDENCIES += \
++	host-meson \
++	host-python-numpy \
++	host-python-pythran \
++	zlib \
++	lapack \
++	openblas \
++	python-numpy \
++	python-pybind
++PYTHON_SCIPY_INSTALL_STAGING = YES
++
++PYTHON_SCIPY_SETUP_TYPE = setuptools
++PYTHON_SCIPY_BUILD_OPTS = config_fc --fcompiler=gnu95
++
++# -lnpymath npymath.ini localization
++PYTHON_SCIPY_NPY_PKG_CONFIG_PATH = \
++	$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/numpy/core/lib/npy-pkg-config
++
++PYTHON_SCIPY_LDFLAGS = $(TARGET_LDFLAGS) -shared \
++	-L$(PYTHON3_PATH)/site-packages/numpy/core/lib
++# -lnpyrandom localization
++PYTHON_SCIPY_LDFLAGS += \
++	-L$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR)/site-packages/numpy/random/lib
++
++PYTHON_SCIPY_ENV = \
++	F90=$(TARGET_FC) \
++	NPY_PKG_CONFIG_PATH=$(PYTHON_SCIPY_NPY_PKG_CONFIG_PATH) \
++	LDFLAGS="$(PYTHON_SCIPY_LDFLAGS)"
++
++# Provide system configuration options to numpy distutils extenions, telling
++# to find all include files and libraries in staging directory.
++define PYTHON_SCIPY_CONFIGURE_CMDS
++	-rm -f $(@D)/site.cfg
++	echo "[DEFAULT]" >> $(@D)/site.cfg
++	echo "library_dirs = $(STAGING_DIR)/usr/lib" >> $(@D)/site.cfg
++	echo "include_dirs = $(STAGING_DIR)/usr/include" >> $(@D)/site.cfg
++endef
++
++$(eval $(python-package))
+-- 
+2.29.2.windows.2
+
