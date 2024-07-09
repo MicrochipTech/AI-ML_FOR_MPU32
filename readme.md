@@ -13,11 +13,14 @@ Only one board is supported for the moment :
 | ----------- | ----------- |
 | [SAMA7G54-Ek](sama7g54-ek)      | Arm Cortex-A7
 
-## Customize Linux4SAM Distribution for Machine Learning. 
+## NOTE : This repository is outdated, please follow the documentation of our partner Edge Impulse : 
 
-To generate your own Linux4SAM image, you will need to customize the Linux4Sam Buildroot distribution. 
+[Microchip and Edge Impulse | SAMA7G54-Ek Documentation ](https://docs.edgeimpulse.com/docs/edge-ai-hardware/cpu/microchip-sama7).
 
-To do so, follow the instructions provided in the [linux4sam_for_ml](linux4sam_for_ml) directory.
+Feel free to reach out to hakim.cherif@microchip.com in case you need any information. 
+
+Thanks,
+
 
 ------- 
 
